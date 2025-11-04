@@ -1,7 +1,6 @@
 import http from "http";
 import { URL } from "url";
-import { getAllContacts } from "./contacts";
-import { getContactById } from "./contacts";
+import { getAllContacts, getContactById } from "./contactService";
 
 const PORT = 3000;
 

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nom": "Alice Dupont",
+    "tel": "0600000001"
+  },
+  {
+    "id": 2,
+    "nom": "Bob Martin",
+    "tel": "0600000002"
+  },
+  {
+    "id": 3,
+    "nom": "Charlie Leroy",
+    "tel": "0600000003"
+  }
+]
