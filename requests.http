@@ -1,0 +1,37 @@
+GET http://localhost:3000/
+
+###
+
+GET http://localhost:3000/contacts
+
+###
+
+GET http://localhost:3000/contacts/1
+
+###
+
+GET http://localhost:3000/contacts/999
+
+###
+
+POST http://localhost:3000/contacts
+Content-Type: application/json
+
+{
+  "nom": "Emma Dubois",
+  "tel": "0600000005"
+}
+
+###
+
+DELETE http://localhost:3000/contacts/2
+
+###
+
+DELETE http://localhost:3000/contacts/999
+
+###
+
+DELETE http://localhost:3000/contacts/abc
+
+###

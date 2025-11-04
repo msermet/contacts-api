@@ -2,9 +2,7 @@ import http from "http";
 import { URL } from "url";
 import { getAllContacts, getContactById, createContact, deleteContact } from "./contactService";
 
-const PORT = 3000;
-
-const server = http.createServer((req, res) => {
+export const server = http.createServer((req, res) => {
     const method = req.method || "GET";
     const url = new URL(req.url || "/", `http://${req.headers.host}`);
     const path = url.pathname;
@@ -94,8 +92,4 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(404, { "Content-Type": "application/json; charset=utf-8" });
     res.end(JSON.stringify({ error: "Not Found", path }));
-});
-
-server.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`);
 });
