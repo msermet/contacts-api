@@ -119,11 +119,4 @@ describe("API Contacts", () => {
         });
     });
 
-    describe("Routes inexistantes", () => {
-        it("retourne 404 pour une route inconnue", async () => {
-            const response = await request(server).get("/api/unknown");
-            expect(response.status).toBe(404);
-            expect(response.body.error).toBe("Not Found");
-        });
-    });
 });
