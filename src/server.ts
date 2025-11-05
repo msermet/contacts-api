@@ -27,11 +27,25 @@ app.get('/contacts/:id', (request, response) => {
 app.post('/contacts', (request, response) => {
     const {nom,tel} = request.body;
     if (!nom || !tel) {
-        return response.status(400).json({error: "Les champs sont requis."});
+        return response.status(400).json({error: "Les champs 'nom' et 'tel' sont requis"});
     }
     const newContact = createContact(nom,tel);
     response.status(201).json({contact: newContact});
 })
+
+app.delete("/contacts/:id", (request, response) => {
+    const id = Number(request.params.id);
+    if (isNaN(id)) {
+        return response.status(400).json({ error: "ID invalide" });
+    }
+
+    const deleted = deleteContact(id);
+    if (!deleted) {
+        return response.status(404).json({ error: "Contact non trouvé" });
+    }
+
+    response.json({ message: "Contact supprimé avec succès" });
+});
 
 
 

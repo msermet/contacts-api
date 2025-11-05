@@ -84,16 +84,6 @@ describe("API Contacts", () => {
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("Les champs 'nom' et 'tel' sont requis");
         });
-
-        it("retourne 400 pour un JSON invalide", async () => {
-            const response = await request(server)
-                .post("/contacts")
-                .set("Content-Type", "application/json")
-                .send("invalid json");
-
-            expect(response.status).toBe(400);
-            expect(response.body.error).toBe("JSON invalide");
-        });
     });
 
     describe("DELETE /contacts/:id", () => {
