@@ -44,7 +44,7 @@ describe("Contact Service", () => {
         });
     });
 
-    describe.only("createContact", () => {
+    describe("createContact", () => {
         it("crée un nouveau contact avec un ID incrémental", () => {
             const newContact = createContact("David Leroy", "0612345678");
             expect(newContact.id).toBe(4);
