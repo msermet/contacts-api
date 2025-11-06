@@ -29,6 +29,12 @@ app.post('/contacts', (request, response) => {
     if (!nom || !tel) {
         return response.status(400).json({error: "Les champs 'nom' et 'tel' sont requis"});
     }
+
+    const contactExistant = contacts.find(c => c.tel === tel);
+    if (contactExistant) {
+        return response.status(409).json({error: "Un contact avec ce numéro existe déjà"});
+    }
+
     const newContact = createContact(nom,tel);
     response.status(201).json({contact: newContact});
 })
@@ -47,6 +53,23 @@ app.delete("/contacts/:id", (request, response) => {
     response.json({ message: "Contact supprimé avec succès" });
 });
 
+app.all("/contacts/:id", (request, response) => {
+    response.status(405).json({ error: "Méthode non autorisée" });
+});
 
+app.all("/contacts", (request, response) => {
+    response.status(405).json({ error: "Méthode non autorisée" });
+});
+
+app.use((request, response) => {
+    response.status(404).json({ error: "Route non trouvée" });
+});
+
+app.use((err: any, request: any, response: any, next: any) => {
+    console.error(err.stack);
+    response.status(err.status || 500).json({
+        error: err.message || "Erreur interne du serveur"
+    });
+});
 
 export const server = app;

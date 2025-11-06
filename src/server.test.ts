@@ -27,6 +27,12 @@ describe("API Contacts", () => {
             expect(res.status).toBe(200);
             expect(res.body.contacts.length).toBeGreaterThan(0);
         });
+
+        it("retourne 405 pour PUT sur /contacts", async () => {
+            const response = await request(server).put("/contacts");
+            expect(response.status).toBe(405);
+            expect(response.body.error).toBe("Méthode non autorisée");
+        });
     });
 
     describe("GET /contacts/:id", () => {
@@ -50,6 +56,12 @@ describe("API Contacts", () => {
             const response = await request(server).get("/contacts/abc");
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("ID invalide");
+        });
+
+        it("retourne 405 pour PATCH sur /contacts/:id", async () => {
+            const response = await request(server).patch("/contacts/1");
+            expect(response.status).toBe(405);
+            expect(response.body.error).toBe("Méthode non autorisée");
         });
     });
 
@@ -84,6 +96,15 @@ describe("API Contacts", () => {
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("Les champs 'nom' et 'tel' sont requis");
         });
+
+        it("retourne 409 si le numéro existe déjà", async () => {
+            const response = await request(server)
+                .post("/contacts")
+                .send({ nom: "Doublon", tel: "0601020304" });
+
+            expect(response.status).toBe(409);
+            expect(response.body.error).toBe("Un contact avec ce numéro existe déjà");
+        });
     });
 
     describe("DELETE /contacts/:id", () => {
@@ -106,6 +127,14 @@ describe("API Contacts", () => {
             const response = await request(server).delete("/contacts/abc");
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("ID invalide");
+        });
+    });
+
+    describe("Routes générales", () => {
+        it("retourne 404 pour une route inexistante", async () => {
+            const response = await request(server).get("/route-inexistante");
+            expect(response.status).toBe(404);
+            expect(response.body.error).toBe("Route non trouvée");
         });
     });
 
